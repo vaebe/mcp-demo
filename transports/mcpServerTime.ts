@@ -1,18 +1,15 @@
-#!/usr/bin/env node
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc.js'
 import timezone from 'dayjs/plugin/timezone.js'
-import packageJson from './package.json' with { type: "json" }
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
 const server = new McpServer({
   name: 'mcp-server-time',
-  version: packageJson.version
+  version: '1.0.0'
 })
 
 // 获取当前时间的工具
@@ -49,14 +46,4 @@ server.tool(
   }
 )
 
-// 启动服务器
-async function runServer() {
-  const transport = new StdioServerTransport()
-  await server.connect(transport)
-  console.error('获取当前时间和时区转换的 MCP 服务器已在 stdio 上启动')
-}
-
-runServer().catch((error) => {
-  console.error('启动服务器时出错:', error)
-  process.exit(1)
-})
+export default server
