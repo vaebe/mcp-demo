@@ -1,0 +1,22 @@
+{
+  "name": "@vaebe/mcp-client",
+  "version": "0.1.0",
+  "description": "MCP client",
+  "license": "MIT",
+  "author": "vaebe",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && shx chmod +x dist/*.js",
+    "prepare": "npm run build",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.11.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.17",
+    "shx": "^0.4.0",
+    "typescript": "^5.8.3"
+  }
+}
