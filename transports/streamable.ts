@@ -2,7 +2,7 @@ import express from "express";
 import { randomUUID } from "node:crypto";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js"
-import server from './mcpServerTime.js'
+import server from './mcpServerTest.js'
 import {addInfoLog, addSuccessLog} from './utils.js'
 import pc from 'picocolors'
 

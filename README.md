@@ -2,6 +2,8 @@
 
 ## 测试 mcp
 
+在对应目录执行 `pnpm build` 打包出 js 文件
+
 ```bash
 # stdio
 npx @modelcontextprotocol/inspector node mcp/githubSearch.mjs

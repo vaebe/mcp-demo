@@ -46,7 +46,6 @@ server.tool(
   }
 )
 
-// 获取当前时间的工具
 server.tool(
   'get_text',
   '返回测试文本',

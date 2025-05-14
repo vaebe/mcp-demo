@@ -1,8 +1,7 @@
 import express from "express";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
-import server from './mcpServerTime.js'
+import server from './mcpServerTest.js'
 import {addInfoLog, addWarnLog, addSuccessLog} from './utils.js'
-import pc from 'picocolors'
 
 const app = express();
 app.use(express.json());

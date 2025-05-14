@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
-import server from './mcpServerTime.js'
+import server from './mcpServerTest.js'
 
 // 启动服务器
 async function runServer() {
