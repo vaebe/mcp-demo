@@ -13,6 +13,8 @@ app.get('/sse', async (req, res) => {
 
   addSuccessLog('客户端连接参数：', req.query)
 
+  addSuccessLog('客户端连接 headers：', req.headers)
+
   // 创建 sse 传输
   const transport = new SSEServerTransport('/messages', res);
   const sessionId = transport.sessionId
@@ -36,11 +38,11 @@ app.get('/sse', async (req, res) => {
 app.post('/messages', async (req, res) => {
   const sessionId = req.query.sessionId as string;
 
-  addInfoLog(`收到客户端消息： ${sessionId}`)  
+  addInfoLog(`messages 收到客户端消息： ${sessionId}`)  
   
-  console.log('query',req.query, '\r\n')
-  console.log('body',req.body, '\r\n')
-  console.log('params',req.params, '\r\n')
+  console.log('messages - query',req.query, '\r\n')
+  console.log('messages - body',req.body, '\r\n')
+  console.log('messages - headers',req.headers, '\r\n')
 
   // 获取连接
   const transport = connections.get(sessionId)
