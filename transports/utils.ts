@@ -1,18 +1,32 @@
 import dayjs from "dayjs";
-import pc from 'picocolors'
+import pc from "picocolors";
 
-export function addInfoLog (text: string) {
-  console.log(pc.gray(dayjs().format('YYYY-MM-DD HH:mm:ss')), ' - ', text)
+type LogLevel = "info" | "success" | "warn" | "error";
+
+const colorMap: Record<LogLevel, (str: string) => string> = {
+  info: pc.gray,
+  success: pc.green,
+  warn: pc.yellow,
+  error: pc.red,
+};
+
+function baseLog(colorFunc: (str: string) => string, message?: any, ...optionalParams: any[]) {
+  const timestamp = dayjs().format("YYYY-MM-DD HH:mm:ss");
+  console.log(colorFunc(timestamp), " - ", message, ...optionalParams);
 }
 
-export function addSuccessLog (text: string) {
-  console.log(pc.green(dayjs().format('YYYY-MM-DD HH:mm:ss')), ' - ', text)
+export function addInfoLog(message?: any, ...optionalParams: any[]) {
+  baseLog(colorMap.info, message, ...optionalParams);
 }
 
-export function addWarnLog (text: string) {
-  console.log(pc.yellow(dayjs().format('YYYY-MM-DD HH:mm:ss')), ' - ', text)
+export function addSuccessLog(message?: any, ...optionalParams: any[]) {
+  baseLog(colorMap.success, message, ...optionalParams);
 }
 
-export function addErrLog (text: string) {
-  console.log(pc.red(dayjs().format('YYYY-MM-DD HH:mm:ss')), ' - ', text)
+export function addWarnLog(message?: any, ...optionalParams: any[]) {
+  baseLog(colorMap.warn, message, ...optionalParams);
+}
+
+export function addErrLog(message?: any, ...optionalParams: any[]) {
+  baseLog(colorMap.error, message, ...optionalParams);
 }

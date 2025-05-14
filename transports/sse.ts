@@ -11,31 +11,33 @@ app.use(express.json());
 const connections = new Map<string, SSEServerTransport>();
 
 app.get('/sse', async (req, res) => {
+
+  addSuccessLog('客户端连接参数：', req.query)
+
   // 创建 sse 传输
   const transport = new SSEServerTransport('/messages', res);
   const sessionId = transport.sessionId
 
-  addInfoLog(`新的 SSE 连接建立: ${sessionId}`)  
+  addInfoLog(`新的 SSE 连接建立： ${sessionId}`)  
 
   // 注册连接
   connections.set(sessionId, transport);
-
   
   res.on("close", () => {
     connections.delete(sessionId);
-    addInfoLog(`SSE 连接关闭: ${sessionId}`)  
+    addInfoLog(`SSE 连接关闭： ${sessionId}`)  
   });
   
   // 将传输对象与MCP服务器连接
   await server.connect(transport);
-  addSuccessLog(`MCP 服务器连接成功: ${sessionId}`)  
+  addSuccessLog(`MCP 服务器连接成功： ${sessionId}`)  
 });
 
 // 旧消息端点
 app.post('/messages', async (req, res) => {
   const sessionId = req.query.sessionId as string;
 
-  addInfoLog(`收到客户端消息: ${sessionId}`)  
+  addInfoLog(`收到客户端消息： ${sessionId}`)  
   
   console.log('query',req.query, '\r\n')
   console.log('body',req.body, '\r\n')
@@ -55,9 +57,9 @@ app.post('/messages', async (req, res) => {
 // 启动服务器
 const port = process.env.PORT || 9001;
 app.listen(port, () => {
-  addSuccessLog(`MCP SSE 服务器已启动: ${pc.green(`http://localhost:${port}`)}`)
-  addInfoLog(`SSE 连接端点: http://localhost:${port}/sse`)
-  addInfoLog(`SSE 消息处理端点: http://localhost:${port}/messages`)
+  addSuccessLog(`MCP SSE 服务器已启动：`, `http://localhost:${port}`)
+  addInfoLog('SSE 连接端点：', `http://localhost:${port}/sse`)
+  addInfoLog('SSE 消息处理端点：', ` http://localhost:${port}/messages`)
 
   console.log('=========================== success ===========================\r\n')
 });
