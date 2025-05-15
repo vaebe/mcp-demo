@@ -1,42 +1,49 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";
+import { addInfoLog, addErrLog, addSuccessLog } from './utils.js'
 
 let client: Client | undefined = undefined
 const baseUrl = new URL('http://localhost:9001/sse');
 
- async function createSseClient() {
+async function createSseClient() {
   client = new Client({
     name: 'sse-client',
     version: '1.0.0',
   });
 
-  const sseTransport = new SSEClientTransport(baseUrl, {
-    requestInit: {
-      headers: {
-        // 这里的参数可以在 messages req.headers 中获取
-        'X-Custom-Param': 'custom_value'
-      },
-      body: JSON.stringify({ 'test': 'add' })
-    }
-  });
+  try {
+    const sseTransport = new SSEClientTransport(baseUrl, {
+      requestInit: {
+        headers: {
+          // 这里的参数可以在 messages req.headers 中获取
+          'X-Custom-Param': 'custom_value'
+        },
+      }
+    });
 
-  await client.connect(sseTransport);
+    // 连接到 MCP 服务
+    await client.connect(sseTransport);
 
+    addSuccessLog(' MCP 服务 连接成功！')
 
-  // 获取 工具列表
-  const tools = await client.listTools()
+    // 获取 工具列表
+    const toolInfo = await client.listTools()
 
-  console.log(tools)
+    addInfoLog('MCP 工具信息', toolInfo)
 
-  // 调用工具
-  const info = await client.callTool({
-    "name": "get_current_time",
-    "arguments": {}
-  })
+    // 调用生成文本工具
+    const callToolInfo = await client.callTool({
+      "name": "get_text",
+      "arguments": {}
+    })
 
-  console.log(info)
+    addInfoLog('get_text 返回信息', callToolInfo)
+  } catch (error) {
+    addErrLog('MCP 客户端错误', error);
+  }
 
-  console.log("Connected using SSE transport");
+  // 关闭连接
+  // client.close()
 }
 
 createSseClient()
