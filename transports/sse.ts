@@ -1,7 +1,7 @@
 import express from "express";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import server from './mcpServerTest.js'
-import { addInfoLog, addWarnLog, addSuccessLog } from '../utils/dist/index.js'
+import { addInfoLog, addWarnLog, addSuccessLog } from './utils.js'
 
 const app = express();
 app.use(express.json());

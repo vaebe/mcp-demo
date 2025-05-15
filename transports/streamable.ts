@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js"
 import server from './mcpServerTest.js'
-import { addInfoLog, addSuccessLog } from '../utils/dist/index.js'
+import { addInfoLog, addSuccessLog } from './utils.js'
 import pc from 'picocolors'
 
 const app = express();

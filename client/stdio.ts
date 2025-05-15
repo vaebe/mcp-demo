@@ -1,6 +1,6 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
-import { addInfoLog, addErrLog, addSuccessLog } from '../utils/dist/index.js'
+import { addInfoLog, addErrLog, addSuccessLog } from './utils.js'
 
 async function createStdioClient() {
   // 创建 client
