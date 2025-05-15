@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js"
 import server from './mcpServerTest.js'
-import {addInfoLog, addSuccessLog} from './utils.js'
+import { addInfoLog, addSuccessLog } from '../utils/dist/index.js'
 import pc from 'picocolors'
 
 const app = express();
@@ -47,7 +47,7 @@ app.post('/mcp', async (req, res) => {
     };
 
     await server.connect(transport);
-    addSuccessLog(`MCP 服务器连接成功: ${sessionId}`)  
+    addSuccessLog(`MCP 服务器连接成功: ${sessionId}`)
   } else {
     // 无效的请求
     res.status(400).json({
@@ -74,7 +74,7 @@ async function handleSessionRequest(req: express.Request, res: express.Response)
     res.status(400).send('会话 ID 无效或缺失');
     return;
   }
-  
+
   // 获取传输实例执行对应的的操作
   const transport = transports[sessionId];
   await transport.handleRequest(req, res);
